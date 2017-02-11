@@ -4,6 +4,7 @@ import daos.CategoriaDAO;
 import daos.EmpleadoDAO;
 import daos.Factory;
 import daos.ComboDAO;
+import daos.PedidoDAO;
 import daos.ProductoDAO;
 import daos.SocioDAO;
 
@@ -24,6 +25,9 @@ public class MySqlFactory  extends Factory{
 
 	@Override
 	public SocioDAO getSocio() { return new MySqlSocioDAO();}
+
+	@Override
+	public PedidoDAO getPedido() {return new MySqlPedidoDAO();}
 
 
 

@@ -20,6 +20,8 @@ import service.MySqlFactory;
 	   
 	   public abstract SocioDAO             getSocio();
 	   
+	   public abstract PedidoDAO            getPedido();
+	   
 	   
 	  /**
 	   * =============================================

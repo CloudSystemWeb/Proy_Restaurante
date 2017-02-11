@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.MySqlProductoDAO;
-
 import com.google.gson.Gson;
 
 import daos.Factory;

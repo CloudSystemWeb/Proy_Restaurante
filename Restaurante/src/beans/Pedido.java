@@ -7,7 +7,9 @@ public class Pedido {
 	private String StrFecPedido;
 	
 	private String StrEstado;
-
+	
+	private String StrMesa;
+	
 	
 	
 	public int getIntCodigoPedido() { return intCodigoPedido; }
@@ -21,8 +23,15 @@ public class Pedido {
 	public String getStrEstado() { return StrEstado; }
 
 	public void setStrEstado(String strEstado) { StrEstado = strEstado;}
-	
-	
-	
+
+	public String getStrMesa() {
+		return StrMesa;
+	}
+
+	public void setStrMesa(String strMesa) {
+		StrMesa = strMesa;
+	}
+
+    
 
 }

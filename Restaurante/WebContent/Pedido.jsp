@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <%@taglib uri="misLibrerias" prefix="lp" %>
 <%@page import="daos.ProductoDAO"%>
+<%@page import="daos.PedidoDAO"%>
 <%@page import="daos.Factory"%>
 <%@page import="beans.Producto"%>
+<%@page import="beans.Pedido"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.*"%>
@@ -47,8 +49,8 @@
                <div id="tabla-variada">
                   <table class="table table-striped">
                      
-                       
-                      
+                     
+                           
                         
                            <% 
                               Factory subFabrica = Factory.getTipo(Factory.TIPO_MYSQL);
@@ -79,7 +81,68 @@
                                   segundo = Integer.toString(c.get(Calendar.SECOND));
                          %>
                         
-                    
+                    <tr>
+                       
+                       
+                     <tr>
+                            <% 
+                                Factory subFabrica1 = Factory.getTipo(Factory.TIPO_MYSQL);
+                                PedidoDAO dao1 = subFabrica1.getPedido();
+                                int codigo3 = dao1.codigoPedido();
+                             %>
+                      </tr>
+           
+                      <tr>
+                        
+                         <td>
+                           <p></p>
+                           <strong>Nº Pedido</strong>
+                         
+                            <input id="pedido"  
+                                   name="pedido" 
+                                   class="form-control"
+                                   readonly="readonly"> 
+                         
+                           </td>
+                           
+                           
+                          <td>
+                          <p id="mesa-mensaje" style="color:#ab001d"></p>
+                          <strong>Nº Mesa</strong>
+                        
+                           <input  id="mesa"  
+                                   name="mesa" 
+                                   class="form-control"
+                                   onblur="patronNumero(this.id, this.value)"> 
+                        </td>
+                       </tr>
+                     
+                      
+                         
+                        <td><strong>Fecha</strong>
+                         
+                        
+                           <input  id="fecha"  
+                                   name="fecha" 
+                                   class="form-control"
+                                   value="<%=sdf2.format(date) %>"
+                                   readonly="readonly"> 
+                                   
+                            <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
+                        </td>
+                     
+                        <td><strong>Hora</strong>
+                         
+                        
+                           <input  id="hora"  
+                                   name="hora" 
+                                   class="form-control"
+                                   value="<%=hora+":"+minuto+":"+segundo%>"
+                                   readonly="readonly"> 
+                                   
+                            <input type="hidden" name="fecha" value="<%=sdf1.format(d) %>">
+                        </td>
+                     </tr>
                      
                   </table>
                </div>
@@ -91,60 +154,8 @@
                
                <div id="div-factura"  style="display:block;">
                    <table class="table table-striped">
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table>
-                              <tr>
-                                 <td>
-                                    <p style="color:#ab001d"></p>
-                                    <label for="cantidad">Nº Pedido</label>
-                                     <input  id="pedido"  
-                                             name="pedido" 
-                                             class="form-control"
-                                             readonly="readonly"> 
-                                   
-                                      <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
-                                      
-                                 </td>
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="uni-medida-mensaje" style="color:#ab001d"></p>
-                                    <label for="uni-medida">Mesa</label>
-                         
-                                 <input  id="mesa"  
-                                         name="mesa" 
-                                         class="form-control"> 
-                                 </td>
-                                 
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                   <p style="color:#ab001d"></p>
-                                    <label for="cantidad">Fecha</label>
-                                     <input  id="fecha1"  
-                                             name="fecha1" 
-                                             class="form-control"
-                                             value="<%=sdf2.format(date) %>"
-                                             readonly="readonly"> 
-                                   
-                                      <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
-                                      
-                                 </td>
-                                 
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="uni-medida-mensaje" style="color:#ab001d"></p>
-                                    <label for="uni-medida">Hora</label>
-                         
-                                 <input  id="hora"  
-                                         name="hora" 
-                                         class="form-control"
-                                         value="<%=hora+":"+minuto+":"+segundo%>"
-                                         readonly="readonly"> 
-                                 </td>
-                              </tr>
-                           </table>
-                     </tr>
+                   
+                       
                      <tr>
                         <td>&nbsp;</td>
                         <td>
@@ -154,7 +165,7 @@
                                  <td>
                                     <p id="producto-mensaje" style="color:#ab001d"></p>
                                     <label for="producto">Producto</label>
-                                     <lp:cboDinamico name="hola" sql="SQL_IdProducto" clase="form-control" id="producto1"/>
+                                     <lp:cboDinamico name="producto" sql="SQL_IdProducto" clase="form-control" id="producto1"/>
                                  </td>
                                  
                                  <td>&nbsp;&nbsp;</td>
@@ -162,7 +173,7 @@
                                     <p id="cantidad1-mensaje" style="color:#ab001d"></p>
                                     <label for="cantidad1">Cantidad</label>
                                      <input  id="cantidad1"  
-                                             name="cantidad1" 
+                                             name="cantidad" 
                                              class="form-control"
                                              onblur="patronNumero(this.id, this.value)"> 
 
@@ -173,7 +184,7 @@
                                     <p id="precio1-mensaje" style="color:#ab001d"></p>
                                     <label for="precio1">Precio</label>
                                     <input  id="precio1"  
-                                            name="precio1" 
+                                            name="precio" 
                                             class="form-control"
                                             onblur="patronNumero(this.id, this.value)"> 
                                  </td>
@@ -188,14 +199,14 @@
                      
                      <tr>
                         <td colspan="2" style="text-align:right">
-                           <div style="color:#ab001d" id="agregar-factura-boton"></div>
-                           <input type="button" value="Agregar" class="btn btn-primary" id="enviar_factura">
+                           <div style="color:#ab001d" id="agregar-pedido-boton"></div>
+                           <input type="button" value="Agregar" class="btn btn-primary" id="enviar_pedido">
                         </td>
                      </tr>
                      <tr>
                         <td>&nbsp;</td>
                         <td>
-                           <table class="table" id="tabla-factura">
+                           <table class="table" id="tabla-pedido">
                               <tr style="background:#428bca;color:white">
                                 <td>ITEM</td>
                                  <td>DESCRIPCION</td>
@@ -205,21 +216,19 @@
                                  <td>ACCION</td>
                               </tr>
                            </table>
-                           <input type="hidden" id="arreglo_boleta_hidden" name="arreglo_boleta_hidden">
-                           <input type="hidden" id="arreglo_factura_hidden" name="arreglo_factura_hidden">
-                           <input type="hidden" id="arreglo_nota_hidden" name="arreglo_nota_hidden">
+                           <div class="footer" style="margin-left:520px; margin-bottom:250px; display:inline;">
+                             <label >Total:</label>
+                             <input type="text" id="total">
+                           </div>
+                           
+                           <input type="hidden" id="arreglo_hidden" name="arreglo_hidden">
+                           
                         </td>
                      </tr>
                      </div>
                   </table>
                </div>
                
-               
-                    
-          
-          
-                    
-              
                
                <div id="boton-generar" style="display:block;">
                   <div style="text-align:right">
@@ -240,37 +249,31 @@
 	   
 	   
 	   /**======= DECLARACION DE VARIABLES GLOBALES =========**/
-	   
-           var item_boleta = 0;
-           var item_factura = 0;
-           var item_nota= 0;
-      
-           arreglo_boleta =  [];
-           arreglo_factura = [];
-           arreglo_nota=     [];
-      
-      
+	  
+	    
+           var item_pedido = 0;
+	       var c=0;
+           arreglo_pedido = [];
      
-
-      
-      
       /*** ======================================================================== 
-           ====================== CODIGO PARA ENVIAR FACTURA ====================== 
+           ====================== CODIGO PARA ENVIAR EL PEDIDO ====================== 
            ======================================================================== ****/
       
            
-          $("#enviar_factura").on("click", function(){
+          $("#enviar_pedido").on("click", function(){
     	  
-           item_factura++;
+           item_pedido++;
+           c++;
            var combo = document.getElementById("producto1");
            var selected = combo.options[combo.selectedIndex].text;
            var cantidad = $("#cantidad1").val();
            var precio = $("#precio1").val();
            var importe = (precio * cantidad);
+          
 
-           arreglo_factura.push([item_factura, selected, cantidad, precio , importe +";"]);
-           $("#tabla-factura").append("<tr><td>"+ item_factura +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ importe +"</td><td><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
-           $("#arreglo_factura_hidden").val(arreglo_factura);
+           arreglo_pedido.push([item_pedido, selected, cantidad, precio , importe ,c +";"]);
+           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ importe +"</td><td><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
+           $("#arreglo_hidden").val(arreglo_pedido);
            $("#selected").val("");
            $("#cantidad1").val("");
            $("#precio1").val("");
@@ -278,64 +281,8 @@
       });
       
    
-      
-      
-      /*** ========================================================================
-           ==================== CODIGO PARA ENVIAR NOTA DE PEDIDO =================
-           ======================================================================== ****/
-      
-      
-           $("#enviar_nota").on("click", function(){
-         	  
-               item_nota++;
-               var combo = document.getElementById("producto2");
-               var selected2 = combo.options[combo.selectedIndex].text;
-               var cantidad2 = $("#cantidad2").val();
-               var precio2 = $("#precio2").val();
-               var importe2 = precio2 * cantidad2;
-
-               arreglo_nota.push([item_nota, selected2, cantidad2, precio2, importe2 +";"]);
-               $("#tabla-nota").append("<tr><td>"+ item_nota +"</td><td>"+ selected2 +"</td><td>"+ cantidad2+"</td><td>"+ precio2+"</td><td>"+ importe2 +"</td><td><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a></td>");
-               $("#arreglo_nota_hidden").val(arreglo_nota);
-               $("#selected2").val("");
-               $("#cantidad2").val("");
-               $("#precio2").val("");
-               $("#cantidad2").focus();
-          });
-      
-      
-           
-       /*** ========================================================================
-            =============  CODIGO PARA VIZUALIZAR EL FORMULARIO: BOLETA ============
-            ======================================================================== ****/
-      
-
-            $("#boleta").on("click", function(){
-              $("#boton-generar").css("display","block");
-                if($(this).is(":checked")){
-                    var datos = $("#arreglo_factura_hidden").val();
-                    if(datos!=""){
-                    if(confirm("¿Está seguro que desea quitar la información anterior?")){
-                       $("#arreglo_factura_hidden").val("");
-                       $("#div-boleta").css("display","block");
-                       $("#div-factura").css("display","none");
-                       $("#div-nota").css("display","none");
-                    }else{
-                       $("#factura").trigger("click");
-                 }
-               }else{
-                     $("#div-boleta").css("display","block");
-                     $("#div-factura").css("display","none");
-                     $("#div-nota").css("display","none");
-              }
-             }
-          });
-      
-      
-      
-
-      /*** ========================================================================
-      =============  CODIGO PARA VIZUALIZAR EL FORMULARIO: FACTURA ============
+ /*** ========================================================================
+      =============  CODIGO PARA VIZUALIZAR EL FORMULARIO ====================
       ======================================================================== ****/
       
       $("#factura").on("click", function(){
@@ -359,35 +306,6 @@
          }
       });
 
-      
-      
-      
-      /*** ========================================================================
-      =============  CODIGO PARA VIZUALIZAR EL FORMULARIO: NOTA DE PEDIDO ============
-      ======================================================================== ****/
-      
-      $("#nota").on("click", function(){
-          $("#boton-generar").css("display","block");
-          if($(this).is(":checked")){
-             var datos = $("#arreglo_nota_hidden").val();
-             if(datos!=""){
-                if(confirm("¿Está seguro que desea quitar la información anterior?")){
-                   $("#arreglo_nota_hidden").val("");
-                   $("#div-nota").css("display","block");
-                   $("#div-factura").css("display","none");
-                   $("#div-boleta").css("display","none");
-                }else{
-                   $("#").trigger("click");
-                }
-             }else{
-            	$("#div-nota").css("display","block");
-                $("#div-factura").css("display","none");
-                $("#div-boleta").css("display","none");
-             }
-          }
-       });
-      
-      
     /*** ================================================================================
          =============  CODIGO PARA VALIDAR SOLO LETRAS ============
          ================================================================================ ****/
@@ -409,7 +327,7 @@
     
 
        /*** ================================================================================
-            =============  CODIGO PARA VALIDAR SOLO NÚMEROS ============
+            =============  CODIGO PARA VALIDAR SOLO NÚMEROS ================================
             ================================================================================ ****/
          
     
@@ -425,6 +343,27 @@
              }
             }
          });
+   
+   
+   
+        /*==========================================================
+          ======== CALCULO DE SUMA DE SUBTOTALES ===================
+          ==========================================================*/   
+          
+           function suma(){
+        	   
+        	   var total = 0;
+        	  
+        	   for(i=1; i<=c;i++){
+            	   
+              	 if(c==item_pedido){
+              		 
+              		 total=total + importe;
+              	 }
+              	   
+                 }
+           }
+          
    
 </script>
 </body>
