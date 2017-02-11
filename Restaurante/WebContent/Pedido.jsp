@@ -46,9 +46,9 @@
             <form action="" method="post">
                <div id="tabla-variada">
                   <table class="table table-striped">
-                     <tr>
+                     
                        
-                       
+                      
                         
                            <% 
                               Factory subFabrica = Factory.getTipo(Factory.TIPO_MYSQL);
@@ -57,31 +57,6 @@
                              %>
                           
                        
-                     </tr>
-                     <tr>
-                       
-                      <tr>
-                         <td><strong>Nº Pedido</strong>
-                         
-                            <input id="pedido"  
-                                   name="pedido" 
-                                   class="form-control"
-                                   readonly="readonly"> 
-                         
-                           </td>
-                           
-                           
-                          <td>
-                          <p id="mesa-mensaje" style="color:#ab001d"></p>
-                          <strong>Nº Mesa</strong>
-                        
-                           <input  id="mesa"  
-                                   name="mesa" 
-                                   class="form-control"
-                                   onblur="patronNumero(this.id, this.value)"> 
-                        </td>
-                       </tr>
-                     
                         <%
                              Date date = new Date();
                              SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
@@ -90,19 +65,8 @@
                              sdf2.format(date);
                          %>
                          
-                        <td><strong>Fecha</strong>
-                         
-                        
-                           <input  id="fecha"  
-                                   name="fecha" 
-                                   class="form-control"
-                                   value="<%=sdf2.format(date) %>"
-                                   readonly="readonly"> 
-                                   
-                            <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
-                        </td>
+                      
                      
-                        <td><strong>Hora</strong>
                          <%
                                   Date dt = new Date();
                                   Calendar c = new GregorianCalendar(); 
@@ -115,48 +79,18 @@
                                   segundo = Integer.toString(c.get(Calendar.SECOND));
                          %>
                         
-                           <input  id="hora"  
-                                   name="hora" 
-                                   class="form-control"
-                                   value="<%=hora+":"+minuto+":"+segundo%>"
-                                   readonly="readonly"> 
-                                   
-                            <input type="hidden" name="fecha" value="<%=sdf1.format(d) %>">
-                        </td>
-                     </tr>
+                    
                      
-                     <tr>
-                        <td>
-                           <h3>COMPROBANTE</h3>
-                           <input type="radio" name="tipo_cotizacion" id="boleta" checked="checked"> Boleta
-                           <input type="radio" name="tipo_cotizacion" id="factura"> Factura
-                           <input type="radio" name="tipo_cotizacion" id="nota"> Nota de Pedido
-                        </td>
-                        <td>&nbsp;</td>
-                     </tr>
                   </table>
                </div>
                
-                    
+          
            <!--======================================================================== 
-               ====================== FORMULARIO DE LA BOLETA ======================== 
+               ====================== FORMULARIO DE LA FACTURA ======================== 
                ======================================================================== -->
                
-               
-               
-               <div id="div-boleta" style="display:	block;">
-                  <table class="table table-striped">
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <p id="" style="color:#ab001d"></p>
-                           <label for="">Nº Boleta</label>
-                           <input type="text" name="" 
-                                  id="" 
-                                  class="form-control" 
-                                  readonly="readonly">
-                        </td>
-                     </tr>
+               <div id="div-factura"  style="display:block;">
+                   <table class="table table-striped">
                      <tr>
                         <td>&nbsp;</td>
                         <td>
@@ -164,11 +98,10 @@
                               <tr>
                                  <td>
                                     <p style="color:#ab001d"></p>
-                                    <label for="FECHA1">Fecha</label>
-                                     <input  id="fecha1"  
-                                             name="fecha1" 
+                                    <label for="cantidad">Nº Pedido</label>
+                                     <input  id="pedido"  
+                                             name="pedido" 
                                              class="form-control"
-                                             value="<%=sdf2.format(date) %>"
                                              readonly="readonly"> 
                                    
                                       <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
@@ -176,108 +109,17 @@
                                  </td>
                                  <td>&nbsp;&nbsp;</td>
                                  <td>
-                                    <p id="hora-mensaje" style="color:#ab001d"></p>
-                                    <label for="hora">Hora</label>
-                                    <input  id="hora"  
-                                            name="hora" 
-                                            class="form-control"
-                                            value="<%=hora+":"+minuto+":"+segundo%>"
-                                            readonly="readonly"> 
+                                    <p id="uni-medida-mensaje" style="color:#ab001d"></p>
+                                    <label for="uni-medida">Mesa</label>
+                         
+                                 <input  id="mesa"  
+                                         name="mesa" 
+                                         class="form-control"> 
                                  </td>
                                  
                                  <td>&nbsp;&nbsp;</td>
                                  <td>
-                                    <p id="producto-mensaje" style="color:#ab001d"></p>
-                                    <label for="producto">Producto</label>
-                                    <lp:cboDinamico name="hola" sql="SQL_IdProducto" clase="form-control" id="producto"/>
-                                 </td>
-                                 
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table>
-                              <tr>
-                                 <td>
-                                    <p id="cantidad-mensaje" style="color:#ab001d"></p>
-                                    <label for="cantidad">Cantidad</label>
-                                     <input  id="cantidad"  
-                                             name="cantidad" 
-                                             class="form-control"
-                                             onblur="patronNumero(this.id, this.value)"> 
-                                   
-                                      <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
-                                      
-                                 </td>
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="precio-mensaje" style="color:#ab001d"></p>
-                                    <label for="precio">Precio</label>
-                                    <input  id="precio"  
-                                            name="precio" 
-                                            class="form-control"
-                                            onblur="patronNumero(this.id, this.value)"> 
-                                 </td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td colspan="2" style="text-align:right">
-                           <div style="color:#ab001d" id="agregar-boleta-boton"></div>
-                           <input type="button" value="Agregar" class="btn btn-primary" id="enviar-boleta">
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table class="table" id="tabla-boleta">
-                              <tr style="background:#428bca;color:white">
-                                 <td>ITEM</td>
-                                 <td>DESCRIPCION</td>
-                                 <td>CANTIDAD</td>
-                                 <td>P.UNITARIO</td>
-                                 <td>IMPORTE</td>
-                                 <td>ACCION</td>
-                              </tr>
-                           </table>
-                           <input type="hidden" id="arreglo_boleta_hidden" name="arreglo_boleta_hidden">
-                           <input type="hidden" id="arreglo_factura_hidden" name="arreglo_factura_hidden">
-                           <input type="hidden" id="arreglo_nota_hidden" name="arreglo_nota_hidden">
-                        </td>
-                     </tr>
-                     </div>
-                  </table>
-               </div>
-               
-               
-           <!--======================================================================== 
-               ====================== FORMULARIO DE LA FACTURA ======================== 
-               ======================================================================== -->
-               
-               <div id="div-factura"  style="display:none;">
-                   <table class="table table-striped">
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <p id="descripcion-mensaje" style="color:#ab001d"></p>
-                           <label for="descripcion">Nº FACTURA</label>
-                           <input type="text" name="descripcion" 
-                                  id="descripcion" class="form-control" 
-                                  readonly="readonly">
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table>
-                              <tr>
-                                 <td>
-                                    <p style="color:#ab001d"></p>
+                                   <p style="color:#ab001d"></p>
                                     <label for="cantidad">Fecha</label>
                                      <input  id="fecha1"  
                                              name="fecha1" 
@@ -288,6 +130,7 @@
                                       <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
                                       
                                  </td>
+                                 
                                  <td>&nbsp;&nbsp;</td>
                                  <td>
                                     <p id="uni-medida-mensaje" style="color:#ab001d"></p>
@@ -299,24 +142,22 @@
                                          value="<%=hora+":"+minuto+":"+segundo%>"
                                          readonly="readonly"> 
                                  </td>
-                                 
+                              </tr>
+                           </table>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                           <table>
+                              <tr>                                
                                  <td>&nbsp;&nbsp;</td>
                                  <td>
                                     <p id="producto-mensaje" style="color:#ab001d"></p>
                                     <label for="producto">Producto</label>
                                      <lp:cboDinamico name="hola" sql="SQL_IdProducto" clase="form-control" id="producto1"/>
                                  </td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     
-                      
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table>
-                              <tr>
+                                 
+                                 <td>&nbsp;&nbsp;</td>
                                  <td>
                                     <p id="cantidad1-mensaje" style="color:#ab001d"></p>
                                     <label for="cantidad1">Cantidad</label>
@@ -326,8 +167,9 @@
                                              onblur="patronNumero(this.id, this.value)"> 
 
                                  </td>
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
+                                 
+                                  <td>&nbsp;&nbsp;</td>
+                                   <td>
                                     <p id="precio1-mensaje" style="color:#ab001d"></p>
                                     <label for="precio1">Precio</label>
                                     <input  id="precio1"  
@@ -336,20 +178,13 @@
                                             onblur="patronNumero(this.id, this.value)"> 
                                  </td>
                                  
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="descuento-mensaje" style="color:#ab001d"></p>
-                                    <label for="descuento">Descuento (S/.)</label>
-                                    <input  id="descuento"  
-                                            name="descuento" 
-                                            class="form-control"
-                                            onblur="patronNumero(this.id, this.value)"> 
-                                 </td>
+                                 
                               </tr>
                            </table>
                         </td>
                      </tr>
                      
+                      
                      
                      <tr>
                         <td colspan="2" style="text-align:right">
@@ -366,7 +201,6 @@
                                  <td>DESCRIPCION</td>
                                  <td>CANTIDAD</td>
                                  <td>P.UNITARIO</td>
-                                 <td>DESCUENTO</td>
                                  <td>IMPORTE</td>
                                  <td>ACCION</td>
                               </tr>
@@ -382,116 +216,10 @@
                
                
                     
-           <!--======================================================================== 
-               ====================== FORMULARIO DE LA NOTA DE PEDIDO ================= 
-               ======================================================================== -->
           
-                 <div id="div-nota"  style="display:none;">
-                  <table class="table table-striped">
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <p id="descripcion-mensaje" style="color:#ab001d"></p>
-                           <label for="descripcion">Nº NOTA DE PEDIDO</label>
-                           <input type="text" name="descripcion" 
-                                  id="descripcion" class="form-control" 
-                                  readonly="readonly">
-                        </td>
-                     </tr>
-                   
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table>
-                              <tr>
-                                 <td>
-                                    <p style="color:#ab001d"></p>
-                                    <label for="cantidad">Fecha</label>
-                                     <input  id="fecha1"  
-                                             name="fecha1" 
-                                             class="form-control"
-                                             value="<%=sdf2.format(date) %>"
-                                             readonly="readonly"> 
-                                   
-                                      <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
-                                      
-                                 </td>
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="uni-medida-mensaje" style="color:#ab001d"></p>
-                                    <label for="uni-medida">Hora</label>
-                         
-                                 <input  id="hora"  
-                                         name="hora" 
-                                         class="form-control"
-                                         value="<%=hora+":"+minuto+":"+segundo%>"
-                                         readonly="readonly"> 
-                                 </td>
-                                 
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="producto-mensaje" style="color:#ab001d"></p>
-                                    <label for="producto">Producto</label>
-                                     <lp:cboDinamico sql="SQL_IdProducto" name="hola"  clase="form-control" id="producto2"/>  
-                                 </td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                     
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table>
-                              <tr>
-                                 <td>
-                                    <p id="cantidad2-mensaje" style="color:#ab001d"></p>
-                                    <label for="cantidad2">Cantidad</label>
-                                     <input  id="cantidad2"  
-                                             name="cantidad2" 
-                                             class="form-control"
-                                             onblur="patronNumero(this.id, this.value)"> 
-                                  
-                                 </td>
-                                 <td>&nbsp;&nbsp;</td>
-                                 <td>
-                                    <p id="precio2-mensaje" style="color:#ab001d"></p>
-                                    <label for="precio2">Precio</label>
-                                    <input  id="precio2"  
-                                            name="precio2" 
-                                            class="form-control"
-                                            onblur="patronNumero(this.id, this.value)"> 
-                                 </td>
-                              </tr>
-                           </table>
-                           
-                             <input type="hidden" id="arreglo_boleta_hidden" name="arreglo_boleta_hidden">
-                             <input type="hidden" id="arreglo_factura_hidden" name="arreglo_factura_hidden">
-                             <input type="hidden" id="arreglo_nota_hidden" name="arreglo_nota_hidden">
-                        </td>
-                     </tr>
-                     <tr>
-                        <td colspan="2" style="text-align:right">
-                           <input type="button" value="Agregar" class="btn btn-primary" id="enviar_nota">
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>&nbsp;</td>
-                        <td>
-                           <table class="table" id="tabla-nota">
-                              <tr style="background:#428bca;color:white">
-                                 <td>ITEM</td>
-                                 <td>DESCRIPCION</td>
-                                 <td>CANTIDAD</td>
-                                 <td>PRECIO</td>
-                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTE <br>(IGV NO INCLUIDO)</td>
-                                 <td>ACCION</td>
-                              </tr>
-                           </table>
-                        </td>
-                     </tr>
-                  </table>
-               </div>
+          
+                    
+              
                
                <div id="boton-generar" style="display:block;">
                   <div style="text-align:right">
@@ -522,30 +250,7 @@
            arreglo_nota=     [];
       
       
-      /*** ======================================================================== 
-           ====================== CODIGO PARA ENVIAR BOLETA  ====================== 
-           ======================================================================== ****/
-      
-      
-           $("#enviar-boleta").on("click", function(){
-    	  
-    	     item_boleta++;
-    	     var combo = document.getElementById("producto");
-             var selected1 = combo.options[combo.selectedIndex].text;
-             var cantidad1 = $("#cantidad").val();
-             var precio1 = $("#precio").val();
-            
-             var importe1 = precio1 * cantidad1;
-        
-             arreglo_boleta.push([item_boleta, selected1, cantidad1, precio1, descuento, importe1 +";"]);
-             $("#tabla-boleta").append("<tr><td>"+ item_boleta +"</td><td>"+ selected1 +"</td><td>"+ cantidad1 +"</td><td>"+ precio1 +"</td><td>"+ descuento +"</td><td>"+ importe1 +"</td><td style='text-align: center;'><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a> </td>");
-             $("#arreglo_boleta_hidden").val(arreglo_boleta);
-             $("#producto").val("");
-             $("#cantidad").val("");
-             $("#precio").val("");
-             $("#cantidad").focus(); 
-
-        });
+     
 
       
       
@@ -561,16 +266,14 @@
            var selected = combo.options[combo.selectedIndex].text;
            var cantidad = $("#cantidad1").val();
            var precio = $("#precio1").val();
-           var descuento = $("#descuento").val();
-           var importe = (precio * cantidad)- descuento;
+           var importe = (precio * cantidad);
 
-           arreglo_factura.push([item_factura, selected, cantidad, precio , descuento, importe +";"]);
-           $("#tabla-factura").append("<tr><td>"+ item_factura +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ descuento +"</td><td>"+importe +"</td><td><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
+           arreglo_factura.push([item_factura, selected, cantidad, precio , importe +";"]);
+           $("#tabla-factura").append("<tr><td>"+ item_factura +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ importe +"</td><td><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
            $("#arreglo_factura_hidden").val(arreglo_factura);
            $("#selected").val("");
            $("#cantidad1").val("");
            $("#precio1").val("");
-           $("#descuento").val("");
            $("#cantidad1").focus();
       });
       
