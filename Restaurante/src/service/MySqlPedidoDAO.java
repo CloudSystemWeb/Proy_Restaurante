@@ -55,16 +55,16 @@ public class MySqlPedidoDAO implements PedidoDAO {
 		try {
 			
 			 conn = new MySqlDBConn().getConnection();
-			 String sql ="insert into detalle_pedido values(?,?,?,?,?,?,?,?)";
+			 String sql ="insert into detalle_pedido values(null,?,?,?,?,?,?,?)";
 			 pstm = conn.prepareStatement(sql);
-			 pstm.setInt(1, dp.getIntCodDetPedido());
-			 pstm.setInt(2, dp.getItem());
-			 pstm.setInt(3, dp.getIntCodigoPedido());
-			 pstm.setInt(4, dp.getIntCodigoProducto());
-			 pstm.setInt(5, dp.getIntCodigoEmpleado());
-			 pstm.setString(6, dp.getStrCantidadPedido());
-			 pstm.setString(7, dp.getStrPrecioTotal());
-			 pstm.setString(8, dp.getStrUnidMedida());
+		
+			 pstm.setInt(1, dp.getItem());
+			 pstm.setInt(2, dp.getIntCodigoPedido());
+			 pstm.setInt(3, dp.getIntCodigoProducto());
+			 pstm.setInt(4, dp.getIntCodigoEmpleado());
+			 pstm.setString(5, dp.getStrCantidadPedido());
+			 pstm.setString(6, dp.getStrPrecioTotal());
+			 pstm.setString(7, dp.getStrUnidMedida());
 			
 			 salida = pstm.executeUpdate();
 	

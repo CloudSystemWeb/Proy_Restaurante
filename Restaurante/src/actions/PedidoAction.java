@@ -33,7 +33,7 @@ public class PedidoAction extends HttpServlet {
    
    	int codeProducto = Integer.parseInt(request.getParameter("producto"));
    	
-   	int codeDetaPedido = Integer.parseInt(request.getParameter("detapedido"));
+   /*	int codeDetaPedido = Integer.parseInt(request.getParameter("detapedido"));*/
    	
    	int codePedido = Integer.parseInt(request.getParameter("pedido"));
    	
@@ -86,11 +86,10 @@ public class PedidoAction extends HttpServlet {
    	    					cantidad = pedidos[1];
    	    					pre = pedidos[2];
    	    					umedida = pedidos[3];
-   	    				}
+   	    				} 
    	    				
-   	    				dp.setIntCodDetPedido(codeDetaPedido);
-   	    				dp.setIntCodigoPedido(codePedido);
    	    				dp.setItem(item);
+   	    				dp.setIntCodigoPedido(codePedido+1);
    	    				dp.setIntCodigoProducto(codeProducto);
    	    				dp.setIntCodigoEmpleado(codeEmpleado);
    	    				dp.setStrCantidadPedido(cantidad);

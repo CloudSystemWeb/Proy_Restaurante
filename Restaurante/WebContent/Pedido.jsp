@@ -117,7 +117,7 @@
                                    readonly="readonly"
                                    value="PED000<%=codigo3+1 %>"> 
                           <input type="hidden" name="pedido" value="<%=codigo3%>">
-                          <input type="hidden" name="detapedido" value="<%=codigo4+1 %>">
+                          
                            </td>
                            
                            
@@ -204,7 +204,15 @@
                                             onblur="patronNumero(this.id, this.value)"> 
                                  </td>
                                  
-                                 
+                                  <td>&nbsp;&nbsp;</td>
+                                   <td>
+                                    <p id="umedida1-mensaje" style="color:#ab001d"></p>
+                                    <label for="umedida1">Unid.Medida</label>
+                                    <input  id="umedida1"  
+                                            name="umedida" 
+                                            class="form-control"
+                                          > 
+                                 </td>
                               </tr>
                            </table>
                         </td>
@@ -227,6 +235,7 @@
                                  <td>DESCRIPCION</td>
                                  <td>CANTIDAD</td>
                                  <td>P.UNITARIO</td>
+                                 <td>UNID.MEDIDA</td>
                                  <td>IMPORTE</td>
                                  <td>ACCION</td>
                               </tr>
@@ -281,13 +290,15 @@
            c++;
            var combo = document.getElementById("producto1");
            var selected = combo.options[combo.selectedIndex].text;
+           var combo = $("#producto1").val();
            var cantidad = $("#cantidad1").val();
            var precio = $("#precio1").val();
+           var umedida = $("#umedida1").val();
            var importe = (precio * cantidad);
           
 
-           arreglo_pedido.push([item_pedido, selected, cantidad, precio , importe ,c +";"]);
-           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ importe +"</td><td><a class='btn btn-info' id='eliminar'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
+           arreglo_pedido.push([item_pedido, combo, cantidad, precio ,umedida , importe ,c +";"]);
+           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ umedida +"</td><td>"+ importe +"</td><td><a class='btn btn-info' id='eliminar'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
            $("#arreglo_hidden").val(arreglo_pedido);
            $("#selected").val("");
            $("#cantidad1").val("");
