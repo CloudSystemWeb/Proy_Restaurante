@@ -1,7 +1,6 @@
 package actions;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.DetallePedido;
-import beans.DetalleProducto;
 import beans.Pedido;
-import beans.Producto;
 import daos.Factory;
 import daos.PedidoDAO;
-import daos.ProductoDAO;
 
 @WebServlet("/pedido")
 public class PedidoAction extends HttpServlet {
@@ -28,18 +24,23 @@ public class PedidoAction extends HttpServlet {
 	 /** =========================================================================
    	 * ****************  Declaración de variables globales *******************
    	 * ======================================================================= **/
+
+	String arreglo =  request.getParameter("arreglo_hidden");
 		
    	String mesa = request.getParameter("mesa");
  
 	String fec = request.getParameter("fecha");
    
-   	String cant = request.getParameter("cantidad");
-
-   	int codigo = Integer.parseInt(request.getParameter("producto"));
+   	int codeProducto = Integer.parseInt(request.getParameter("producto"));
+   	
+   	int codeDetaPedido = Integer.parseInt(request.getParameter("detapedido"));
    	
    	int codePedido = Integer.parseInt(request.getParameter("pedido"));
+   	
+   	
+   	int codeEmpleado = Integer.parseInt(request.getParameter("empleado"));
          
-   	String precio = request.getParameter("precio");
+   /*	String precio = request.getParameter("precio");*/
    
    	
    	   Factory subFabrica = Factory.getTipo(Factory.TIPO_MYSQL); /**==== Obtengo el motor de base de datos ========== */
@@ -64,21 +65,52 @@ public class PedidoAction extends HttpServlet {
        	 * ****************   Objeto DetallePedido *******************
        	 * ============================================================= **/
    		
-   	if(cant!=  ""){
-   		
-   		             DetallePedido dp = new DetallePedido();
-   		             dp.setIntCodigoPedido(codePedido);
-   		             dp.setIntCodigoProducto(codigo);
-   		             dp.setStrCantidadPedido(cant);
-   		             dp.setStrPrecioTotal(precio);
-   		            
-   		
-   	                 dao.registrarDetallePedido(dp);	/**===== Obtengo el metodo SQL que me ejecuta la acción a realizar*/
+   			if(arreglo != ""){
+		   		
+   				DetallePedido dp = new DetallePedido();
+   	    		String[] pedido = arreglo.split(";");
+   	    		int num = 1;
+   	    		for (String string : pedido) {
+   	    				String[] pedidos = string.split(",");
+   	    				int item;
+   	    				String cantidad,umedida,pre;
+   	    				
+   	    				if(num>=2){
+   	    					item =Integer.parseInt(pedidos[1]);
+   	    					cantidad = pedidos[2];
+   	    					pre = pedidos[3];
+   	    					umedida=pedidos[4];
+   	    					
+   	    				}else{
+   	    					item =Integer.parseInt(pedidos[0]);
+   	    					cantidad = pedidos[1];
+   	    					pre = pedidos[2];
+   	    					umedida = pedidos[3];
+   	    				}
+   	    				
+   	    				dp.setIntCodDetPedido(codeDetaPedido);
+   	    				dp.setIntCodigoPedido(codePedido);
+   	    				dp.setItem(item);
+   	    				dp.setIntCodigoProducto(codeProducto);
+   	    				dp.setIntCodigoEmpleado(codeEmpleado);
+   	    				dp.setStrCantidadPedido(cantidad);
+   	    				dp.setStrPrecioTotal(pre);
+   	    				dp.setStrUnidMedida(umedida);
+   	    				num++;
+   	    				
+   	    				//3 El metodo(El SQL que se va enviar)
+   	    			    dao.registrarDetallePedido(dp);	
+   	    				
+   	    				
+   	    		}
+   	    		
+   	    		
+   	    	}
+   	    	    
+   		    
+
    	
-   	    /**==FIN ==**/	
-   	} 
-   	
-   	   request.getRequestDispatcher("/Pedido.jsp").forward(request, response);
+   	        request.getRequestDispatcher("/Pedido.jsp").forward(request, response);
 	 
 	}
 	

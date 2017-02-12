@@ -13,10 +13,10 @@ public class DetallePedido {
     private String StrCantidadPedido;
     
     private String StrPrecioTotal;
-    
-    private String StrNumMesa;
+  
+    private int item;
 	
-	
+	private String StrUnidMedida;
 
 	public int getIntCodDetPedido() {
 		return IntCodDetPedido;
@@ -66,12 +66,21 @@ public class DetallePedido {
 		StrPrecioTotal = strPrecioTotal;
 	}
 
-	public String getStrNumMesa() {
-		return StrNumMesa;
+
+	public int getItem() {
+		return item;
 	}
 
-	public void setStrNumMesa(String strNumMesa) {
-		StrNumMesa = strNumMesa;
+	public void setItem(int item) {
+		this.item = item;
+	}
+
+	public String getStrUnidMedida() {
+		return StrUnidMedida;
+	}
+
+	public void setStrUnidMedida(String strUnidMedida) {
+		StrUnidMedida = strUnidMedida;
 	}
 	
 	

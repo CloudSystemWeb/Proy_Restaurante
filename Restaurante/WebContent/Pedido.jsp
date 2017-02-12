@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="beans.DetallePedido"%>
 <%@taglib uri="misLibrerias" prefix="lp" %>
 <%@page import="daos.ProductoDAO"%>
 <%@page import="daos.PedidoDAO"%>
@@ -45,11 +46,18 @@
       </div><br><br>
       <div class="row">
          <div class="col-md-12">
-            <form action="" method="post">
+            <form action="pedido" method="post">
                <div id="tabla-variada">
                   <table class="table table-striped">
                      
                      
+                           
+                            <% 
+                              Factory subFabrica4 = Factory.getTipo(Factory.TIPO_MYSQL);
+                               PedidoDAO dao4 = subFabrica4.getPedido();
+                                 int codigo4 = dao4.codigoDetaPedido();
+                             %>
+                          
                            
                         
                            <% 
@@ -79,7 +87,13 @@
                                   hora = Integer.toString(c.get(Calendar.HOUR_OF_DAY));
                                   minuto = Integer.toString(c.get(Calendar.MINUTE));
                                   segundo = Integer.toString(c.get(Calendar.SECOND));
+                                  
+                                  
+                                  
                          %>
+                         
+                         
+                     
                         
                     <tr>
                        
@@ -98,11 +112,12 @@
                            <p></p>
                            <strong>Nº Pedido</strong>
                          
-                            <input id="pedido"  
-                                   name="pedido" 
+                            <input id="pedido"
                                    class="form-control"
-                                   readonly="readonly"> 
-                         
+                                   readonly="readonly"
+                                   value="PED000<%=codigo3+1 %>"> 
+                          <input type="hidden" name="pedido" value="<%=codigo3%>">
+                          <input type="hidden" name="detapedido" value="<%=codigo4+1 %>">
                            </td>
                            
                            
@@ -153,7 +168,7 @@
                ======================================================================== -->
                
                <div id="div-factura"  style="display:block;">
-                   <table class="table table-striped">
+                   <table class="table table-striped" id="tb-pedido">
                    
                        
                      <tr>
@@ -176,7 +191,7 @@
                                              name="cantidad" 
                                              class="form-control"
                                              onblur="patronNumero(this.id, this.value)"> 
-
+                                 <input type="hidden" name="empleado" value="2">
                                  </td>
                                  
                                   <td>&nbsp;&nbsp;</td>
@@ -218,7 +233,7 @@
                            </table>
                            <div class="footer" style="margin-left:520px; margin-bottom:250px; display:inline;">
                              <label >Total:</label>
-                             <input type="text" id="total">
+                             <input type="text" id="total" >
                            </div>
                            
                            <input type="hidden" id="arreglo_hidden" name="arreglo_hidden">
@@ -272,7 +287,7 @@
           
 
            arreglo_pedido.push([item_pedido, selected, cantidad, precio , importe ,c +";"]);
-           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ importe +"</td><td><a class='btn btn-info'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
+           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ importe +"</td><td><a class='btn btn-info' id='eliminar'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
            $("#arreglo_hidden").val(arreglo_pedido);
            $("#selected").val("");
            $("#cantidad1").val("");
@@ -349,22 +364,16 @@
         /*==========================================================
           ======== CALCULO DE SUMA DE SUBTOTALES ===================
           ==========================================================*/   
-          
-           function suma(){
-        	   
-        	   var total = 0;
-        	  
-        	   for(i=1; i<=c;i++){
-            	   
-              	 if(c==item_pedido){
-              		 
-              		 total=total + importe;
-              	 }
-              	   
-                 }
-           }
-          
+         
    
+</script>
+
+<script>
+
+
+
+
+
 </script>
 </body>
 </html> 

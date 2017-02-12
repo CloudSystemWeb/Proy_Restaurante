@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import util.MySqlDBConn;
 import beans.DetallePedido;
 import beans.Pedido;
-import beans.Producto;
 import daos.PedidoDAO;
 
 public class MySqlPedidoDAO implements PedidoDAO {
@@ -56,13 +55,16 @@ public class MySqlPedidoDAO implements PedidoDAO {
 		try {
 			
 			 conn = new MySqlDBConn().getConnection();
-			 String sql ="insert into detalle_pedido values(null,?,?,?,?,?)";
+			 String sql ="insert into detalle_pedido values(?,?,?,?,?,?,?,?)";
 			 pstm = conn.prepareStatement(sql);
-			 pstm.setInt(1, dp.getIntCodigoPedido());
-			 pstm.setInt(2, dp.getIntCodigoProducto());
-			 pstm.setInt(3, dp.getIntCodigoEmpleado());
-			 pstm.setString(4, dp.getStrCantidadPedido());
-			 pstm.setString(5, dp.getStrPrecioTotal());
+			 pstm.setInt(1, dp.getIntCodDetPedido());
+			 pstm.setInt(2, dp.getItem());
+			 pstm.setInt(3, dp.getIntCodigoPedido());
+			 pstm.setInt(4, dp.getIntCodigoProducto());
+			 pstm.setInt(5, dp.getIntCodigoEmpleado());
+			 pstm.setString(6, dp.getStrCantidadPedido());
+			 pstm.setString(7, dp.getStrPrecioTotal());
+			 pstm.setString(8, dp.getStrUnidMedida());
 			
 			 salida = pstm.executeUpdate();
 	
@@ -111,6 +113,40 @@ public class MySqlPedidoDAO implements PedidoDAO {
 		}
 		
 		return codigo;
+	}
+
+	@Override
+	public int codigoDetaPedido() {
+		
+		Connection con= null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int codigo=0;
+		
+		try {
+			
+			con= new MySqlDBConn().getConnection();
+			String sql="Select Max(idDetaPedido)  from detalle_pedido ";
+			pst=con.prepareStatement(sql);
+			rs = pst.executeQuery();
+			DetallePedido bean = null;
+			rs.next();
+				bean = new DetallePedido();
+				bean.setIntCodDetPedido(rs.getInt(1));
+				
+				codigo = bean.getIntCodDetPedido();
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				if(pst != null) pst.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {}
+		}
+		
+		return codigo;
+		
 	}
 
 }
