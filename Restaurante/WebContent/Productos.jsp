@@ -19,8 +19,6 @@
 </head>
 <!-- <body style="background-image:url('http://www.anawalls.com/images/other/restaurant-table-interior-modern-style.jpg');"> -->
 <body>
-<br><br>
-
   <form action="Productos" method="post">
      <input type="hidden" name="metodo" value="inserta">
      
@@ -42,7 +40,8 @@
          <div class="col-md-9">
             <div class="row">
                <div class="col-md-8">
-                  <h2>PRODUCTO</h2>
+              
+                  <h1>PRODUCTO </h1><br>
     
                   <div class="row">
                      <div class="col-md-9">
@@ -115,7 +114,7 @@
                  </div>
                 </form>  
               </div>    
-                
+               
               <!-- FIN -->  
                   
                   <div class="row">

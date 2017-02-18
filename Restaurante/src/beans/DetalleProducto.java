@@ -12,7 +12,7 @@ public class DetalleProducto {
 	
 	      private String StrSTKProducto;       //=== Variable para mostrar la cantidad del producto.
 	      
-	      private int intCodigoProducto;    //=== Variable para el identificador del producto (FORÁNEA).
+	      private String intCodigoProducto;    //=== Variable para el identificador del producto (FORÁNEA).
 	     
 	      
 	 /**  ===================================================================
@@ -24,7 +24,7 @@ public class DetalleProducto {
 		 
 		  public String getStrSTKProducto() { return StrSTKProducto; }
 
-	      public int getIntCodigoProducto() { return intCodigoProducto; }
+	      public String getIntCodigoProducto() { return intCodigoProducto; }
 		  
 		  
 		  
@@ -38,7 +38,7 @@ public class DetalleProducto {
 		  
 		  public void setStrSTKProducto(String strSTKProducto) { StrSTKProducto = strSTKProducto;}
 
-		  public void setIntCodigoProducto(int intCodigoProducto) { this.intCodigoProducto = intCodigoProducto;}
+		  public void setIntCodigoProducto(String intCodigoProducto) { this.intCodigoProducto = intCodigoProducto;}
 
         
 		

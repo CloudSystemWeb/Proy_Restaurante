@@ -1,100 +1,74 @@
 <!DOCTYPE html>
-<%@page import="beans.DetallePedido"%>
+
 <%@taglib uri="misLibrerias" prefix="lp" %>
-<%@page import="daos.ProductoDAO"%>
-<%@page import="daos.PedidoDAO"%>
-<%@page import="daos.Factory"%>
-<%@page import="beans.Producto"%>
-<%@page import="beans.Pedido"%>
-<%@page import="java.util.List"%>
+<%@page import="daos.*"%>
+<%@page import="beans.*"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.*"%>
+
 <html lang="es">
 <head>
    <meta charset="UTF-8">
    <title>GESTION DE PEDIDOS</title>
-   <link rel="stylesheet" href="css/jquery-ui.min.css"> 
+  <link rel="stylesheet" href="css/jquery-ui.min.css"> 
    <link rel="stylesheet" href="css/bootstrap.min.css">
    <link rel="stylesheet" href="css/estilo.css">
-   
-   <script src="autocompleter.js"></script>
+  
+  
 </head>
-<body >
+
+<body>
    <div class="contenedor">
       <div class="row">
          <div class="col-md-6" style="text-align:left">
          
-            <br><br>
-          <b style="font-size:20px; ">  <p>Hoy es 
-               <%
-               Date d = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
-            sdf.format(d);
-               %>
-               <%=sdf.format(d) %>
-               </p></b>
+            <br> <br>
+            
+            
          </div>
+         
          <div class="col-md-6" style="text-align:right">
          <br>
 
          </div>
       </div>
       <div class="row">
-         <div class="col-md-12">
-            <h1 align="center">GESTION DE PEDIDOS</h1>
+         <div class="col-md-12" align="center">
+           <h1> <b>GESTION DE PEDIDOS</b></h1>
          </div>
       </div><br><br>
       <div class="row">
          <div class="col-md-12">
-            <form action="pedido" method="post">
+            <form action="pedido" method="post" >
                <div id="tabla-variada">
                   <table class="table table-striped">
-                     
-                     
+                             
+                            
                            
                             <% 
                               Factory subFabrica4 = Factory.getTipo(Factory.TIPO_MYSQL);
-                               PedidoDAO dao4 = subFabrica4.getPedido();
-                                 int codigo4 = dao4.codigoDetaPedido();
+                              PedidoDAO dao4 = subFabrica4.getPedido();
+                              int codigo4 = dao4.codigoDetaPedido();
                              %>
                           
                            
                         
-                           <% 
-                              Factory subFabrica = Factory.getTipo(Factory.TIPO_MYSQL);
+                             <% 
+                               Factory subFabrica = Factory.getTipo(Factory.TIPO_MYSQL);
                                ProductoDAO dao = subFabrica.getProducto();
-                                 int codigo = dao.codigoProducto();
+                               int codigo = dao.codigoProducto();
                              %>
                           
                        
-                        <%
-                             Date date = new Date();
-                             SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
-                             SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
-                             sdf1.format(date);
-                             sdf2.format(date);
-                         %>
-                         
-                      
-                     
-                         <%
-                                  Date dt = new Date();
-                                  Calendar c = new GregorianCalendar(); 
-                                  c.setTime(dt);
-
-                                  String hora, minuto, segundo;
-                                  
-                                  hora = Integer.toString(c.get(Calendar.HOUR_OF_DAY));
-                                  minuto = Integer.toString(c.get(Calendar.MINUTE));
-                                  segundo = Integer.toString(c.get(Calendar.SECOND));
-                                  
-                                  
-                                  
-                         %>
-                         
+                             <%
+                               Date date = new Date();
+                               SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
+                               SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+                               sdf1.format(date);
+                               sdf2.format(date);
+                             %>
                          
                      
-                        
                     <tr>
                        
                        
@@ -106,7 +80,7 @@
                              %>
                       </tr>
            
-                      <tr>
+                      <tr class="pallete_black">
                         
                          <td>
                            <p></p>
@@ -115,9 +89,10 @@
                             <input id="pedido"
                                    class="form-control"
                                    readonly="readonly"
-                                   value="PED000<%=codigo3+1 %>"> 
+                                   value="PED000<%=codigo3+1 %>"
+                                   style="background-color:#fff;border:none;"> 
                           <input type="hidden" name="pedido" value="<%=codigo3%>">
-                          
+                          <input type="hidden" name="detapedido" value="<%=codigo4%>">
                            </td>
                            
                            
@@ -128,11 +103,12 @@
                            <input  id="mesa"  
                                    name="mesa" 
                                    class="form-control"
-                                   onblur="patronNumero(this.id, this.value)"> 
+                                   onblur="patronNumero(this.id, this.value)"
+                                   required="required"> 
                         </td>
                        </tr>
                      
-                      
+                      <tr>
                          
                         <td><strong>Fecha</strong>
                          
@@ -141,21 +117,16 @@
                                    name="fecha" 
                                    class="form-control"
                                    value="<%=sdf2.format(date) %>"
+                                   style="border:none;font-size:16px;background-color:#fff;"
                                    readonly="readonly"> 
                                    
                             <input type="hidden" name="fecha" value="<%=sdf1.format(date) %>">
                         </td>
                      
-                        <td><strong>Hora</strong>
-                         
-                        
-                           <input  id="hora"  
-                                   name="hora" 
-                                   class="form-control"
-                                   value="<%=hora+":"+minuto+":"+segundo%>"
-                                   readonly="readonly"> 
-                                   
-                            <input type="hidden" name="fecha" value="<%=sdf1.format(d) %>">
+                        <td><strong>Hora</strong><br>
+                       
+                           <span id="liveclock"></span>
+             
                         </td>
                      </tr>
                      
@@ -175,43 +146,53 @@
                         <td>&nbsp;</td>
                         <td>
                            <table>
-                              <tr>                                
+                              <tr>       
+                              
+                                                       
                                  <td>&nbsp;&nbsp;</td>
                                  <td>
                                     <p id="producto-mensaje" style="color:#ab001d"></p>
                                     <label for="producto">Producto</label>
-                                     <lp:cboDinamico name="producto" sql="SQL_IdProducto" clase="form-control" id="producto1"/>
+                                     <lp:cboDinamico id="producto1" 
+                                                     name="producto"
+                                                     clase="form-control"  
+                                                     sql="SQL_IdProducto" 
+                                                     />  
+                                            
                                  </td>
+                                 
+                                 
                                  
                                  <td>&nbsp;&nbsp;</td>
                                  <td>
-                                    <p id="cantidad1-mensaje" style="color:#ab001d"></p>
-                                    <label for="cantidad1">Cantidad</label>
-                                     <input  id="cantidad1"  
-                                             name="cantidad" 
-                                             class="form-control"
-                                             onblur="patronNumero(this.id, this.value)"> 
-                                 <input type="hidden" name="empleado" value="2">
+                                      <p id="cantidad1-mensaje" style="color:#ab001d"></p>
+                                      <label  for="cantidad1">Cantidad</label>
+                                      <input  id="cantidad1"  
+                                              name="cantidad" 
+                                              class="form-control"
+                                              onblur="patronNumero(this.id, this.value)"> 
+                                      <input type="hidden" name="empleado" value="2">
+                                 </td>
+                                 
+                                 
+                                  <td>&nbsp;&nbsp;</td>
+                                   <td>
+                                      <p id="precio1-mensaje" style="color:#ab001d"></p>
+                                      <label  for="precio1">Precio</label>
+                                      <input  id="precio1"  
+                                              name="precio" 
+                                              class="form-control"
+                                              onblur="patronNumero(this.id, this.value)"> 
                                  </td>
                                  
                                   <td>&nbsp;&nbsp;</td>
                                    <td>
-                                    <p id="precio1-mensaje" style="color:#ab001d"></p>
-                                    <label for="precio1">Precio</label>
-                                    <input  id="precio1"  
-                                            name="precio" 
-                                            class="form-control"
-                                            onblur="patronNumero(this.id, this.value)"> 
-                                 </td>
-                                 
-                                  <td>&nbsp;&nbsp;</td>
-                                   <td>
-                                    <p id="umedida1-mensaje" style="color:#ab001d"></p>
-                                    <label for="umedida1">Unid.Medida</label>
-                                    <input  id="umedida1"  
-                                            name="umedida" 
-                                            class="form-control"
-                                          > 
+                                      <p id="umedida1-mensaje" style="color:#ab001d"></p>
+                                      <label  for="umedida1">Unid.Medida</label>
+                                      <input  id="umedida1"  
+                                              name="umedida" 
+                                              class="form-control"
+                                              onblur="patronTexto(this.id, this.value)"> 
                                  </td>
                               </tr>
                            </table>
@@ -226,19 +207,36 @@
                            <input type="button" value="Agregar" class="btn btn-primary" id="enviar_pedido">
                         </td>
                      </tr>
+                     
+                     
                      <tr>
                         <td>&nbsp;</td>
                         <td>
+                        
+                         <div class="alert alert-success">
+                           <%
+		                      String mensaje =(String)request.getAttribute("MENSAJE");
+                              if(mensaje!=null){
+                    	   %>
+			
+			               <%=mensaje %> 
+			 
+		                   <% }%>
+		                 </div> 
+                       
+                        
                            <table class="table" id="tabla-pedido">
-                              <tr style="background:#428bca;color:white">
-                                <td>ITEM</td>
-                                 <td>DESCRIPCION</td>
-                                 <td>CANTIDAD</td>
-                                 <td>P.UNITARIO</td>
-                                 <td>UNID.MEDIDA</td>
-                                 <td>IMPORTE</td>
-                                 <td>ACCION</td>
-                              </tr>
+                            
+                                <tr style="background:#428bca;color:white">
+                                    <td>ITEM</td>
+                                    <td>DESCRIPCION</td>
+                                    <td>CANTIDAD</td>
+                                    <td>P.UNITARIO</td>
+                                    <td>UNID.MEDIDA</td>
+                                    <td>IMPORTE</td>
+                                    <td>ACCION</td>
+                                </tr>
+                              
                            </table>
                            <div class="footer" style="margin-left:520px; margin-bottom:250px; display:inline;">
                              <label >Total:</label>
@@ -252,12 +250,12 @@
                      </div>
                   </table>
                </div>
-               
-               
+   
                <div id="boton-generar" style="display:block;">
                   <div style="text-align:right">
                      <input type="submit" class="btn btn-primary" value="Generar Pedido">
                   </div>
+                  
                </div>
             </form>
          </div>
@@ -286,24 +284,26 @@
            
           $("#enviar_pedido").on("click", function(){
     	  
-           item_pedido++;
-           c++;
+         
            var combo = document.getElementById("producto1");
            var selected = combo.options[combo.selectedIndex].text;
            var combo = $("#producto1").val();
            var cantidad = $("#cantidad1").val();
            var precio = $("#precio1").val();
            var umedida = $("#umedida1").val();
+           var mesa = $("#mesa").val();
            var importe = (precio * cantidad);
-          
-
-           arreglo_pedido.push([item_pedido, combo, cantidad, precio ,umedida , importe ,c +";"]);
-           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td>"+ cantidad+"</td><td>"+ precio+"</td><td>"+ umedida +"</td><td>"+ importe +"</td><td><a class='btn btn-info' id='eliminar'><span class='glyphicon glyphicon-trash'></span> Eliminar</a>  </td>");
+         
+           item_pedido++;
+           arreglo_pedido.push([item_pedido,combo,cantidad, precio ,umedida +";"]);
+           $("#tabla-pedido").append("<tr><td>"+ item_pedido +"</td><td>"+ selected +"</td><td><div contenteditable>"+ cantidad+"</div></td><td><div contenteditable>"+ precio+"</div></td><td><div contenteditable>"+ umedida +"</div></td><td>"+ importe +"</td><td><a class='btn btn-info' onclick='remove(this)'><span class='glyphicon glyphicon-trash'></span> Eliminar </a></td>");
            $("#arreglo_hidden").val(arreglo_pedido);
            $("#selected").val("");
            $("#cantidad1").val("");
            $("#precio1").val("");
            $("#cantidad1").focus();
+           
+          
       });
       
    
@@ -379,12 +379,63 @@
    
 </script>
 
-<script>
+<script type="text/javascript"> 
 
 
+function show5(){
+if (!document.layers&&!document.all&&!document.getElementById)
+return
+
+var Digital=new Date()
+var hours=Digital.getHours()
+var minutes=Digital.getMinutes()
+var seconds=Digital.getSeconds()
+
+var dn="PM"
+if (hours<12)
+dn="AM"
+if (hours>12)
+hours=hours-12
+if (hours==0)
+hours=12
+
+if (minutes<=9)
+minutes="0"+minutes
+if (seconds<=9)
+seconds="0"+seconds
+//change font size here to your desire
+myclock="<font size='3' face='Arial' >"+hours+":"+minutes+":"
++seconds+" "+dn+"</font>"
+if (document.layers){
+document.layers.liveclock.document.write(myclock)
+document.layers.liveclock.document.close()
+}
+else if (document.all)
+liveclock.innerHTML=myclock
+else if (document.getElementById)
+document.getElementById("liveclock").innerHTML=myclock
+setTimeout("show5()",1000)
+}
 
 
+window.onload=show5
+
+                    
+</script> 
+
+<script type="text/javascript">
+
+function remove(t)
+{
+    var td = t.parentNode;
+    var tr = td.parentNode;
+    var table = tr.parentNode;
+    table.removeChild(tr);
+}
 
 </script>
+
+
+
 </body>
 </html> 

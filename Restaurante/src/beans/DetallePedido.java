@@ -6,7 +6,7 @@ public class DetallePedido {
 	
 	private int IntCodigoPedido;
 	
-	private int IntCodigoProducto;
+	private String IntCodigoProducto;
 	
 	private int IntCodigoEmpleado;
 	
@@ -17,7 +17,10 @@ public class DetallePedido {
     private int item;
 	
 	private String StrUnidMedida;
+	
+	
 
+	
 	public int getIntCodDetPedido() {
 		return IntCodDetPedido;
 	}
@@ -34,11 +37,11 @@ public class DetallePedido {
 		IntCodigoPedido = intCodigoPedido;
 	}
 
-	public int getIntCodigoProducto() {
+	public String getIntCodigoProducto() {
 		return IntCodigoProducto;
 	}
 
-	public void setIntCodigoProducto(int intCodigoProducto) {
+	public void setIntCodigoProducto(String intCodigoProducto) {
 		IntCodigoProducto = intCodigoProducto;
 	}
 
@@ -66,7 +69,6 @@ public class DetallePedido {
 		StrPrecioTotal = strPrecioTotal;
 	}
 
-
 	public int getItem() {
 		return item;
 	}
@@ -82,9 +84,7 @@ public class DetallePedido {
 	public void setStrUnidMedida(String strUnidMedida) {
 		StrUnidMedida = strUnidMedida;
 	}
-	
-	
-	
+
 	
 	
 }

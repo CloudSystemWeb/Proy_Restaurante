@@ -56,7 +56,7 @@ public class ProductosAction extends HttpServlet {
     
     	String cant = request.getParameter("cantidad");
 
-    	int codigo = Integer.parseInt(request.getParameter("cod-prod"));
+    	String codigo = request.getParameter("cod-prod");
     	
     	int codeCategoria = Integer.parseInt(request.getParameter("cod-cat"));
           

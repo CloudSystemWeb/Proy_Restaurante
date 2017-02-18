@@ -14,7 +14,6 @@ public interface ProductoDAO {
 	 * ========= DECLARAMOS LOS METODOS NECESARIOS PARA EL MANTENIMIENTO DEL PRODUCTO ================
 	 * ===============================================================================================
 	                                                                                                  ***/
-	
 
 	public abstract int registra(Producto p);
 	
@@ -33,5 +32,9 @@ public interface ProductoDAO {
 	public int insertaDetalleProducto(DetalleProducto obj);
 	
 	public abstract ArrayList<String> listar(String productos);
+	
+	public abstract int traeStock(DetalleProducto bean) throws Exception;
+	
+	
 	
 }

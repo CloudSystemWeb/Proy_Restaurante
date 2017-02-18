@@ -152,7 +152,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 			conn = new MySqlDBConn().getConnection();
 			String sql ="insert into detalle_producto values(null,?,?)";
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, obj.getIntCodigoProducto());
+			pstm.setString(1, obj.getIntCodigoProducto());
 			pstm.setString(2, obj.getStrSTKProducto());
 			
 			salida = pstm.executeUpdate();
@@ -180,8 +180,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 			PreparedStatement ps = null;
 			String data;
 			try {
-				ps = conn
-						.prepareStatement("SELECT * FROM PRODUCTO  WHERE nombre  LIKE ?");
+				ps = conn.prepareStatement("Select * from producto where nombre like ?");
 				ps.setString(1, productos + "%");
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
@@ -193,7 +192,43 @@ public class MySqlProductoDAO implements ProductoDAO {
 			}
 			return list;
 		}
-         
 
+	@Override
+	public int traeStock(DetalleProducto bean) throws Exception {
+		
+		int salida = -1;
+		Connection conn= null;
+		
+		PreparedStatement pstm = null;
+		
+		try {
+			 conn = new MySqlDBConn().getConnection();
+			 String sql ="Select dp.stock from detalle_producto dp inner join producto p On dp.idproducto=p.idproducto where dp.idproducto=?";
+			 pstm = conn.prepareStatement(sql);
+			 pstm.setString(1, bean.getStrSTKProducto());
+		
+			 salida = pstm.executeUpdate();
+	
+			
+		    } catch (Exception e) { e.printStackTrace();} 
+		
+		    finally{
+		    	
+			      try {
+				       if(pstm!= null) pstm.close();
+				       if(conn!= null) conn.close();
+			          } 
+			      
+			      catch (Exception e2) { }
+		}
+		
+		System.out.print("ingresado");
+		return salida;
+		
+		
+		
+	}
+
+         
 	
 }
